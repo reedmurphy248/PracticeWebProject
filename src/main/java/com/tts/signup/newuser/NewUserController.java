@@ -6,8 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.tts.subscriberlist.subscriber.Subscriber;
-
 @Controller
 public class NewUserController {
 	
@@ -21,12 +19,13 @@ public class NewUserController {
 	
 	@PostMapping(value = "/")
 	public String addNewUser(NewUser newUser, Model model) {
-		newUserRepository.save(new Subscriber(subscriber.getFirstName(),
-	    subscriber.getLastname(), subscriber.getUserName(), subscriber.getSignedUp()));
-		model.addAttribute("firstName", subscriber.getFirstName());
-		model.addAttribute("lastName", subscriber.getLastname());
-		model.addAttribute("userName", subscriber.getUserName());
-		return "subscriber/result";
+		newUserRepository.save(new NewUser(newUser.getUserName(), newUser.getEmailAddress(), 
+		newUser.getPassword(), newUser.getSignedUp()));
+		model.addAttribute("userName", newUser.getUserName());
+		model.addAttribute("emailAddress", newUser.getEmailAddress());
+		model.addAttribute("passWord", newUser.getPassword());
+		return "newUser/result";
+	}
 
 	
 }
